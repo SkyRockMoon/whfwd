@@ -51,8 +51,9 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
 	// other fields not used include: icon and title
 	message := fmt.Sprintf(`{"activity":"New Pull Request","body":"Name: %s\nTitle: %s\nLink: [Pull request](%s)\n"}`,display_name,title,prUrl)	
 
-	// url to send outgoing post request	
+	///////// url to send outgoing post request////////////////////////////////////	
 	url := "https://hooks.glip.com/webhook/47c23015-f6af-452f-95bf-4052574a06da"
+	//////////////////////////////////////////////////////////////////////////////
 
 	// build outgoing request
 	var jsonStr = []byte(message)
