@@ -11,28 +11,30 @@ import (
 )
 
 func handleWebhook(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("=========================================================\n")
+	bodyBytes,_ := ioutil.ReadAll(r.Body)
+	//fmt.Println(bodyBytes)
+    	bodyString := string(bodyBytes)	
+	fmt.Println(bodyString)
+	fmt.Println("=========================================================\n")
+
 	webhookData := make(map[string]interface{})
-	//pullRequestData := make(map[string]interface{})
 	json.NewDecoder(r.Body).Decode(&webhookData)
-	//json.NewDecoder(r.Body).Decode(&pullRequestData)
 
 	fmt.Println("got webhook payload: ")
 	for key, value := range webhookData {
 		fmt.Printf("%s : %v\n", key, value)
 	}
-
 	fmt.Println("=========================================================\n")
-	bodyBytes,_ := ioutil.ReadAll(r.Body)
-    	//bodyString := string(bodyBytes)	
-	fmt.Println(bodyBytes)
 
-	//var f interface{}
-	//json.Unmarshal(r.Body, &f)
-	//m := f.(map[string]interface{})
-	//for key, value := range m {
-	//	fmt.Printf("%s : %v\n",key, value)
-	//}
-	//fmt.Println(pullRequestData)
+
+	var f interface{}
+	json.Unmarshal(bodyBytes, &f)
+	m := f.(map[string]interface{})
+	for key, value := range m {
+		fmt.Printf("%s : %v\n",key, value)
+	}
+//	fmt.Println(pullRequestData)
 }
 
 func main() {
